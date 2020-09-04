@@ -27,7 +27,7 @@ jobs:
     - name: Build and Analyze
       run: |
         Get-ChildItem -Path . -Filter *.csproj -Recurse | % {dotnet restore ($_.Name -replace ".csproj", "")}
-        Get-ChildItem -Path . -Filter *.csproj -Recurse | % {sl.exe analyze --app ($_.Name -replace ".csproj", "") --tag branch=$Env:GITHUB_REF --csharp --dotnet-core --cpg $_.FullName}
+        Get-ChildItem -Path . -Filter *.csproj -Recurse | % {.\sl analyze --app ($_.Name -replace ".csproj", "") --tag branch=$Env:GITHUB_REF --csharp --dotnet-core --cpg $_.FullName}
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
 
