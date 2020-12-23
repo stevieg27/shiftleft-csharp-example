@@ -32,7 +32,7 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --verbose --force --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
@@ -47,7 +47,7 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --verbose --force --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
@@ -61,7 +61,7 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --cpg netfwWebapi/netfwWebapi.sln
+          $(Agent.HomeDirectory)\sl.exe analyze --verbose --force --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --cpg netfwWebapi/netfwWebapi.sln
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
