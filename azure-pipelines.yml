@@ -1,10 +1,6 @@
 variables:
 - group: shiftleft-token
 
-trigger:
-- master
-- feature/*
-
 pool:
   vmImage: 'windows-latest'
 
@@ -30,32 +26,30 @@ stages:
     - task: DotNetCoreCLI@2
       displayName: Build console app
       inputs:
-        command: 'build'
+        command: 'restore'
         projects: '$(Build.SourcesDirectory)\netcoreConsole'
     - task: CmdLine@2
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
-        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
 
     - task: DotNetCoreCLI@2
       displayName: Build web api
       inputs:
-        command: 'build'
+        command: 'restore'
         projects: '$(Build.SourcesDirectory)\netcoreWebapi'
 
     - task: CmdLine@2
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
-        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
 
     - task: MSBuild@1
@@ -67,8 +61,7 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --cpg netfwWebapi/netfwWebapi.sln
+          $(Agent.HomeDirectory)\sl.exe analyze --force --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --sca --cpg netfwWebapi/netfwWebapi.sln
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
-        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
