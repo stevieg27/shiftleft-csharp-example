@@ -46,7 +46,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = 'Bearer $(SHIFTLEFT_ACCESS_TOKEN)'} -Uri 'https://www.shiftleft.io/api/v4/orgs/$(SHIFTLEFT_ORG_ID)/apps/$(APP_NAME)/findings?type=vuln&type=extscan' | ConvertFrom-Json | select -expand response | select -expand scan
+          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = 'Bearer $(SHIFTLEFT_ACCESS_TOKEN)'} -Uri "https://www.shiftleft.io/api/v4/orgs/$(SHIFTLEFT_ORG_ID)/apps/$(APP_NAME)/findings?type=vuln&type=extscan" | ConvertFrom-Json | select -expand response | select -expand scan
           $scanResult | Select id, started_at, completed_at, number_of_expressions
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
