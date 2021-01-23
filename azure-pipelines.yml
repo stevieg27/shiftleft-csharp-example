@@ -48,6 +48,7 @@ stages:
         script: |
           $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = "Bearer $env:SHIFTLEFT_ACCESS_TOKEN"} -Uri "https://www.shiftleft.io/api/v4/orgs/$env:SHIFTLEFT_ORG_ID/apps/netcoreConsole/findings?type=vuln&type=extscan" | ConvertFrom-Json | select -expand response | select -expand scan
           $scanResult | Select id, started_at, completed_at, number_of_expressions
+        pwsh: true
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
@@ -67,17 +68,6 @@ stages:
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-    - task: PowerShell@2
-      displayName: Display last scan stats
-      inputs:
-        targetType: 'inline'
-        script: |
-          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = "Bearer $env:SHIFTLEFT_ACCESS_TOKEN"} -Uri "https://www.shiftleft.io/api/v4/orgs/$env:SHIFTLEFT_ORG_ID/apps/$env:APP_NAME/findings?type=vuln&type=extscan" | ConvertFrom-Json | select -expand response | select -expand scan
-          $scanResult | Select id, started_at, completed_at, number_of_expressions
-      env:
-        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
-        SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-        APP_NAME: netcoreWebapi
     - task: MSBuild@1
       inputs:
         solution: '$(Build.SourcesDirectory)/netfwWebapi/*.sln'
@@ -92,14 +82,3 @@ stages:
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-    - task: PowerShell@2
-      displayName: Display last scan stats
-      inputs:
-        targetType: 'inline'
-        script: |
-          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = "Bearer $env:SHIFTLEFT_ACCESS_TOKEN"} -Uri "https://www.shiftleft.io/api/v4/orgs/$env:SHIFTLEFT_ORG_ID/apps/$env:APP_NAME/findings?type=vuln&type=extscan" | ConvertFrom-Json | select -expand response | select -expand scan
-          $scanResult | Select id, started_at, completed_at, number_of_expressions
-      env:
-        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
-        SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-        APP_NAME: netfwWebapi
