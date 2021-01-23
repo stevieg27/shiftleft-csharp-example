@@ -36,12 +36,22 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --wait --app netcoreConsole --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreConsole/netcoreConsole/netcoreConsole.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-
+    - task: PowerShell@2
+      displayName: Display last scan stats
+      inputs:
+        targetType: 'inline'
+        script: |
+          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = 'Bearer $(SHIFTLEFT_ACCESS_TOKEN)'} -Uri 'https://www.shiftleft.io/api/v4/orgs/$(SHIFTLEFT_ORG_ID)/apps/$(APP_NAME)/findings?type=vuln&type=extscan' | ConvertFrom-Json | select -expand response | select -expand scan
+          $scanResult | Select id, started_at, completed_at, number_of_expressions
+      env:
+        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
+        SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
+        APP_NAME: netcoreConsole
     - task: DotNetCoreCLI@2
       displayName: Build web api
       inputs:
@@ -52,12 +62,22 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
+          $(Agent.HomeDirectory)\sl.exe analyze --wait --app netcoreWebapi --tag branch=$(Build.SourceBranchName) --csharp --dotnet-core --cpg netcoreWebapi/netcoreWebapi.csproj
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
-
+    - task: PowerShell@2
+      displayName: Display last scan stats
+      inputs:
+        targetType: 'inline'
+        script: |
+          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = 'Bearer $(SHIFTLEFT_ACCESS_TOKEN)'} -Uri 'https://www.shiftleft.io/api/v4/orgs/$(SHIFTLEFT_ORG_ID)/apps/$(APP_NAME)/findings?type=vuln&type=extscan' | ConvertFrom-Json | select -expand response | select -expand scan
+          $scanResult | Select id, started_at, completed_at, number_of_expressions
+      env:
+        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
+        SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
+        APP_NAME: netcoreWebapi
     - task: MSBuild@1
       inputs:
         solution: '$(Build.SourcesDirectory)/netfwWebapi/*.sln'
@@ -67,8 +87,19 @@ stages:
       displayName: Analyze with Inspect
       inputs:
         script: |
-          $(Agent.HomeDirectory)\sl.exe analyze --force --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --cpg netfwWebapi/netfwWebapi.sln
+          $(Agent.HomeDirectory)\sl.exe analyze --wait --app netfwWebapi --tag branch=$(Build.SourceBranchName) --csharp --cpg netfwWebapi/netfwWebapi.sln
         workingDirectory: '$(Build.SourcesDirectory)'
       env:
         SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
         SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
+    - task: PowerShell@2
+      displayName: Display last scan stats
+      inputs:
+        targetType: 'inline'
+        script: |
+          $scanResult = Invoke-WebRequest -Headers @{'Content-Type' = 'application/json'; 'Authorization' = 'Bearer $(SHIFTLEFT_ACCESS_TOKEN)'} -Uri 'https://www.shiftleft.io/api/v4/orgs/$(SHIFTLEFT_ORG_ID)/apps/$(APP_NAME)/findings?type=vuln&type=extscan' | ConvertFrom-Json | select -expand response | select -expand scan
+          $scanResult | Select id, started_at, completed_at, number_of_expressions
+      env:
+        SHIFTLEFT_ORG_ID: $(SHIFTLEFT_ORG_ID)
+        SHIFTLEFT_ACCESS_TOKEN: $(SHIFTLEFT_ACCESS_TOKEN)
+        APP_NAME: netfwWebapi
