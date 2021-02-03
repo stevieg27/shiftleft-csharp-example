@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Run tests
+      - name: SL analyze
         run: |
             docker build --build-arg BRANCH="${{ github.head_ref || steps.extract_branch.outputs.branch }}" --build-arg SHIFTLEFT_ORG_ID=$SHIFTLEFT_ORG_ID --build-arg SHIFTLEFT_ACCESS_TOKEN=$SHIFTLEFT_ACCESS_TOKEN .
         env:
@@ -38,6 +38,6 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: Validate Build Rules
-      run: ${GITHUB_WORKSPACE}/sl check-analysis --app netcoreConsole w--branch "${{ github.head_ref || steps.extract_branch.outputs.branch }}" --report --github-pr-number=${{github.event.number}} --github-pr-user=${{ github.repository_owner }} --github-pr-repo=${{ github.event.repository.name }}  --github-token=${{ secrets.GITHUB_TOKEN }}
+      run: ${GITHUB_WORKSPACE}/sl check-analysis --app netcoreConsole --branch "${{ github.head_ref || steps.extract_branch.outputs.branch }}" --report --github-pr-number=${{github.event.number}} --github-pr-user=${{ github.repository_owner }} --github-pr-repo=${{ github.event.repository.name }}  --github-token=${{ secrets.GITHUB_TOKEN }}
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
