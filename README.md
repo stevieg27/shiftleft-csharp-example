@@ -1,4 +1,4 @@
-# ShiftLeft-CSharp-Example
+# ShiftLeft C# Example
 This repository contains an evolving set of vulnerable .NET applications and some examples for how one can analyze these applications in your CI system, such as:
 
 - [GitHub Actions](.github/workflows/shiftleft.yml)
