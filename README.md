@@ -1,5 +1,8 @@
 # ShiftLeft-CSharp-Example
-This repository will contain an evolving set of vulnerable .NET applications and some examples for how one can analyze these applications.
+This repository contains an evolving set of vulnerable .NET applications and some examples for how one can analyze these applications in your CI system, such as:
+
+- [GitHub Actions](.github/workflows/shiftleft.yml)
+- [Azure DevOps Pipelines](azure-pipelines.yml)
 
 For more information on how to secure C# applications with ShiftLeft CORE see [the documentation at docs.shiftleft.io](https://docs.shiftleft.io/ngsast/analyzing-applications/c-sharp)
 
