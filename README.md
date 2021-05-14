@@ -1,5 +1,7 @@
-# HelloShiftLeft-DotNet
-This repository will contain an evolving set of .NET applications that can be used for testing.
+# ShiftLeft-CSharp-Example
+This repository will contain an evolving set of vulnerable .NET applications and some examples for how one can analyze these applications.
+
+For more information on how to secure C# applications with ShiftLeft CORE see [the documentation at docs.shiftleft.io](https://docs.shiftleft.io/ngsast/analyzing-applications/c-sharp)
 
 ## Current Status
 Applications are being created for internal developer-only testing of the .NET pipeline. As the pipeline matures, the status of applications for use in internal and/or customer demonstrations will be shown here.
