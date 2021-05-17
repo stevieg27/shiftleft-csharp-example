@@ -6,18 +6,17 @@ This repository contains an evolving set of vulnerable .NET applications and som
 
 For more information on how to secure C# applications with ShiftLeft CORE see [the documentation at docs.shiftleft.io](https://docs.shiftleft.io/ngsast/analyzing-applications/c-sharp)
 
-## Current Status
-Applications are being created for internal developer-only testing of the .NET pipeline. As the pipeline matures, the status of applications for use in internal and/or customer demonstrations will be shown here.
+## Applications
 
-| Application Name |Technology, architecture | Packages, API, components | Framework/Version | Role
-|------------------|-------------------------|-----------------|-------------------|------|
-| netcoreConsole | Console | TODO | .NET Core 2.0 | Internal testing
-| netcoreWebapi | WebAPI, REST | TODO | .NET Core 2.0 | Internal testing
-| netfwWebapi | WebAPI, REST | TODO | .NET Framework 4.6.1 | Internal testing
-| netfwWCFwithASP | WCF, plain ASP, SOAP | Logging, ADO/EF | .NET Framework 4.6.1 | Internal testing   
-| netfwWCFwithMVC | WCF, MVC, SOAP  | Logging, ADO/EF  | .NET Framework 4.6.1  | Internal testing
-| vulnerable_asp_net_core | MVC  | Entity Framework, SQLite | .NET Core 2.1 | Internal testing
-| vulnerable_asp_net_framework | MVC  | Entity Framework, SQLite | .NET Framework 4.6.1 | Internal testing
+| Application Name |Technology, architecture | Packages, API, components | Framework/Version |
+|------------------|-------------------------|-----------------|-------------------|
+| netcoreConsole | Console | TODO | .NET Core 2.0 |
+| netcoreWebapi | WebAPI, REST | TODO | .NET Core 2.0 |
+| netfwWebapi | WebAPI, REST | TODO | .NET Framework 4.6.1 |
+| netfwWCFwithASP | WCF, plain ASP, SOAP | Logging, ADO/EF | .NET Framework 4.6.1 |
+| netfwWCFwithMVC | WCF, MVC, SOAP  | Logging, ADO/EF  | .NET Framework 4.6.1  |
+| vulnerable_asp_net_core | MVC  | Entity Framework, SQLite | .NET Core 2.1 |
+| vulnerable_asp_net_framework | MVC  | Entity Framework, SQLite | .NET Framework 4.6.1 |
 
 ## Build
 Each application has its own folder. You can build using either `Visual Studio 2017` or from the command-line using the commands below.
