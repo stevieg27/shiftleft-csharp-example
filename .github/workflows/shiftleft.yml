@@ -1,6 +1,6 @@
-# This workflow integrates ShiftLeft Inspect with GitHub
+# This workflow integrates ShiftLeft with GitHub Actions
 # Visit https://docs.shiftleft.io for help
-name: Analyze with ShiftLeft Inspect
+name: Analyze with ShiftLeft
 
 on:
   pull_request:
